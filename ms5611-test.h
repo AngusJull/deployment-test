@@ -7,8 +7,8 @@
  * Last Edited On:
  */
 
-#ifndef ms5611_h
-#define ms5611_h
+#ifndef ms5611_test_h
+#define ms5611_test_h
 
 #include "test-global.h"
 
@@ -32,6 +32,7 @@ enum ms5611_state {
 };
 
 struct ms5611_desc_t {
+    
     /** Time of last reading from sensor */
     uint32_t last_reading_time;
     /** Temperature compensated pressure read from sensor */
@@ -72,15 +73,25 @@ struct ms5611_desc_t {
 
 /**
  * Initialize an instance of the MS5611 driver.
+ *
+ * @param inst Pointer to the instance descriptor to be initialized
+ * @param csb Non-zero value if CSB pin of sensor is pulled high
+ * @param period Period in milliseconds at which the sensor should be polled
+ * @param calculate_altitude Whether the altitude value should be calculated
+ *                           when the sensor is polled
  */
-extern void init_ms5611 (struct ms5611_desc_t *inst);
+extern void init_ms5611 (struct ms5611_desc_t *inst, uint8_t csb,
+                         uint32_t period, uint8_t calculate_altitude);
+
+
+
+
 /**
  * Service to be run in each iteration of the main loop.
  *
  * @param inst The MS5611 driver instance for which the service should be run
  */
 extern void ms5611_service (struct ms5611_desc_t *inst);
-
 
 /**
  * Get the most recently measured pressure value.
