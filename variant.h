@@ -14,15 +14,13 @@
 #define telemtry_h_skipped
 #define telemetry_h
 #endif
-#include "ms5611.h"
-#include "mpu9250.h"
+#include "ms5611-test.h"
+#include "mpu9250-test.h"
 #ifdef telemtry_h_skipped
 #undef telemetry_h
 #undef telemtry_h_skipped
 #endif
-#include "rn2483.h"
-#include "radio-transport.h"
-#include "radio-antmgr.h"
+
 
 #include "deployment.h"
 
@@ -161,12 +159,12 @@
 //
 
 /* USB enabled if defined */
-#define ENABLE_USB
+//#define ENABLE_USB
 
 /* Define to enable USB CDC port 0 */
-#define ENABLE_USB_CDC_PORT_0
+//#define ENABLE_USB_CDC_PORT_0
 /* Define to enable echo on USB CDC port 0 */
-#define USB_CDC_PORT_0_ECHO
+//#define USB_CDC_PORT_0_ECHO
 /* Define to enable USB CDC port 1 */
 //#define ENABLE_USB_CDC_PORT_1
 /* Define to enable echo on USB CDC port 1 */
@@ -184,13 +182,13 @@
 //
 
 /* Debugging console enabled if defined */
-#define ENABLE_CONSOLE
+//#define ENABLE_CONSOLE
 /* UART instance to be used for console, USB is used if not defined (and USB is
    enabled) */
 //#define CONSOLE_UART uart3_g
 /* USB CDC port to be used for debugging console, this is ignored if
    CONSOLE_UART is defined */
-#define CONSOLE_CDC_PORT 0
+//#define CONSOLE_CDC_PORT 0
 
 //
 //
@@ -199,7 +197,7 @@
 //
 
 /* Debug CLI enabled if defined */
-#define ENABLE_DEBUG_CLI
+//#define ENABLE_DEBUG_CLI
 /* Prompt for DEBUG CLI */
 
 
@@ -210,7 +208,7 @@
 //
 
 /** Defining this macro enables the use of LoRa radios */
-#define ENABLE_LORA
+//#define ENABLE_LORA
 
 
 #ifdef ENABLE_LORA
@@ -308,9 +306,9 @@ extern struct mpu9250_desc_t imu_g;
 //
 
 /* GNSS enabled if defined */
-#define ENABLE_GNSS
+//#define ENABLE_GNSS
 /* UART used to communicate with GNSS */
-#define GNSS_UART uart2_g
+//#define GNSS_UART uart2_g
 
 //
 //
@@ -318,7 +316,7 @@ extern struct mpu9250_desc_t imu_g;
 //
 //
 
-#define ENABLE_LOGGING
+//#define ENABLE_LOGGING
 //#define LOGGING_START_PAUSED
 
 #ifdef ENABLE_LOGGING
@@ -331,7 +329,7 @@ extern struct logging_desc_t logging_g;
 //
 //
 
-#define ENABLE_TELEMETRY_SERVICE
+//#define ENABLE_TELEMETRY_SERVICE
 
 #ifdef ENABLE_TELEMETRY_SERVICE
 extern struct telemetry_service_desc_t telemetry_g;
