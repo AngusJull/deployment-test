@@ -1,30 +1,6 @@
 #include "test-global.h"
 
 struct mpu9250_desc_t {
-    /** I2C instance used by this sensor */
-    struct sercom_i2c_desc_t *i2c_inst;
-
-    /** Telemetry service instance */
-    struct telemetry_service_desc_t *telem;
-
-    /** Buffer used for I2C transaction data */
-    uint8_t buffer[MPU9250_BUFFER_LENGTH];
-
-    /** Pointer to buffer to be used when reading samples from sensor, could be
-        a buffer provided by the telemetry service or this driver instances own
-        buffer */
-    uint8_t *telem_buffer;
-
-    /** The millis value when we started waiting for something */
-    uint32_t wait_start;
-
-    /** Values used when averaging samples for self test and offset
-        calibration */
-    int32_t accel_accumulators[3];
-    /** Values used when averaging samples for self test and offset
-        calibration */
-    int32_t gyro_accumulators[3];
-
     /** Records time of interrupt before a sample is read from the chip */
     uint32_t next_sample_time;
 
@@ -47,29 +23,6 @@ struct mpu9250_desc_t {
     uint8_t extra_samples;
 
     uint8_t samples_left;
-
-    /** Sensor I2C address */
-    uint8_t mpu9250_addr;
-
-
-    /** I2C transaction id */
-    uint8_t t_id;
-
-    uint8_t retry_count;
-
-    /** Value to be loaded into sample rate register to set ODR */
-    uint8_t odr;
-
-    /** ODR for magnetometer */
-    enum ak8963_odr mag_odr:1;
-    /** Full scale range for gyroscope */
-    enum mpu9250_gyro_fsr gyro_fsr:2;
-    /** Full scale range for accelerometer */
-    enum mpu9250_accel_fsr accel_fsr:2;
-    /** LPF bandwidth for gyroscope */
-    enum mpu9250_gyro_bw gyro_bw:7;
-    /** LPF bandwidth for accelerometer */
-    enum mpu9250_accel_bw accel_bw:7;
 
     /** Driver current state */
     enum mpu9250_state state:6;
