@@ -8,11 +8,9 @@
  */
 
 #include "deployment.h"
-
 #include <math.h>
-
-#include "variant.h"
-#include "gpio.h"
+#include "variant-test.h"
+#include "gpio-test.h"
 
 void init_deployment(struct deployment_service_desc_t *const inst,
                      struct ms5611_desc_t *const ms5611_alt,

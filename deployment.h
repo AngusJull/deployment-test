@@ -10,6 +10,7 @@
 #ifndef deployment_h
 #define deployment_h
 
+#include "test-global.h"
 #include "ms5611-test.h"
 #include "mpu9250-test.h"
 
