@@ -244,11 +244,6 @@ enum mpu9250_state {
 
 
 struct mpu9250_desc_t {
-    /** I2C instance used by this sensor */
-    struct sercom_i2c_desc_t *i2c_inst;
-
-    /** Telemetry service instance */
-    struct telemetry_service_desc_t *telem;
 
     /** Buffer used for I2C transaction data */
     uint8_t buffer[MPU9250_BUFFER_LENGTH];
@@ -349,7 +344,7 @@ struct mpu9250_desc_t {
 
 
 extern int init_mpu9250(struct mpu9250_desc_t *inst,
-                        struct sercom_i2c_desc_t *i2c_inst, uint8_t i2c_addr,
+                        uint8_t i2c_addr,
                         union gpio_pin_t int_pin,
                         enum mpu9250_gyro_fsr gyro_fsr,
                         enum mpu9250_gyro_bw gyro_bw,
@@ -357,11 +352,6 @@ extern int init_mpu9250(struct mpu9250_desc_t *inst,
                         enum mpu9250_accel_bw accel_bw, uint16_t ag_odr,
                         enum ak8963_odr mag_odr, int use_fifo);
 
-static inline void mpu9250_register_telem(struct mpu9250_desc_t *inst,
-                                        struct telemetry_service_desc_t *telem)
-{
-    inst->telem = telem;
-}
 
 extern void mpu9250_service(struct mpu9250_desc_t *inst);
 
@@ -626,52 +616,5 @@ static inline int mpu9250_get_mag_overflow(const struct mpu9250_desc_t *inst)
 {
     return inst->last_mag_overflow;
 }
-
-
-
-
-
-
-
-
-//
-//  Telemetry related functions defined in telemetry.c
-//
-
-/**
- *  Post data from MPU9250 IMU to telemetry service.
- *
- *  @param inst Telemetry service instance
- *  @param time Mission time for data being posted
- *  @param ag_sr_div Sample rate division register value
- *  @param accel_fsr Acceleration full scale range
- *  @param gyro_frs Angular velocity full scale range
- *  @param accel_bw Accelerometer 3 dB bandwidth
- *  @param gyro_bw Gyroscope 3 dB bandwidth
- *  @param sensor_payload_length Amount of sensor data to be posted in bytes
- *
- *  @return Pointer to a buffer into which sensor data can be copied or NULL if
- *          a buffer cannot be provided
- */
-extern uint8_t *telemetry_post_mpu9250_imu(
-                                           struct telemetry_service_desc_t *inst,
-                                           uint32_t time, uint8_t ag_sr_div,
-                                           enum ak8963_odr mag_odr,
-                                           enum mpu9250_accel_fsr accel_fsr,
-                                           enum mpu9250_gyro_fsr gyro_frs,
-                                           enum mpu9250_accel_bw accel_bw,
-                                           enum mpu9250_gyro_bw gyro_bw,
-                                           uint16_t sensor_payload_length);
-
-/**
- *  Indicate to telemetry service that MPU9250 data has been copied
- *  into buffer received from telemetry_post_mpu9250_imu().
- *
- *  @param inst Telemetry service instance
- *  @param buffer The buffer into which data has been copied.
- */
-extern int telemetry_finish_mpu9250_imu(struct telemetry_service_desc_t *inst,
-                                        uint8_t *buffer);
-
 
 #endif /* mpu9250_h */
