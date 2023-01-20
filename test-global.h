@@ -1,5 +1,5 @@
 #include <stdint.h>
+#include "gpio-test.h"
 
-#define GPIO_15 1;
-#define GPIO_22 1;
-#define GPIO_23 1;
+//Mission time
+long int millis;
