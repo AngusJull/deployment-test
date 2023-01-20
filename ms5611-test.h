@@ -81,4 +81,89 @@ extern void init_ms5611 (struct ms5611_desc_t *inst);
  */
 extern void ms5611_service (struct ms5611_desc_t *inst);
 
+
+/**
+ * Get the most recently measured pressure value.
+ *
+ * @param inst The MS5611 driver instance
+ *
+ * @return The most recently measured pressure in Pascals (hundredths of a mbar)
+ */
+static inline int32_t ms5611_get_pressure (struct ms5611_desc_t *inst)
+{
+    return inst->pressure;
+}
+
+/**
+ * Get the most recently measured temperature value.
+ *
+ * @param inst The MS5611 driver instance
+ *
+ * @return The most recently measured temperature in hundredths of a degree
+ *         celsius
+ */
+static inline int32_t ms5611_get_temperature (struct ms5611_desc_t *inst)
+{
+    return inst->temperature;
+}
+
+/**
+ * Get the most recently measured altitude value.
+ *
+ * @param inst The MS5611 driver instance
+ *
+ * @return The most recently measured altitude in meters
+ */
+static inline float ms5611_get_altitude (struct ms5611_desc_t *inst)
+{
+    return inst->altitude;
+}
+
+/**
+ * Get the last time at which a reading was started.
+ *
+ * @param inst The MS5611 driver instance
+ *
+ * @return The value of millis when the last reading was started
+ */
+static inline uint32_t ms5611_get_last_reading_time (struct ms5611_desc_t *inst)
+{
+    return inst->last_reading_time;
+}
+
+/**
+ * Set the period at which readings are taken.
+ *
+ * @param inst The MS5611 driver instance
+ * @param period The new period at which readings should be taken in
+ *               milliseconds
+ */
+static inline void ms5611_set_period (struct ms5611_desc_t *inst,
+                                      uint32_t period)
+{
+    inst->period = period;
+}
+
+/**
+ * Tare altitude calculations by setting the refernce pressure to the last
+ * measured pressure.
+ *
+ * @param inst The MS5611 driver instance
+ */
+static inline void ms5611_tare_now (struct ms5611_desc_t *inst)
+{
+    inst->p0 = ((float)inst->pressure) / 100.0f;
+}
+
+/**
+ * Tare altitude calculations next time a measurment takes place by setting the
+ * reference pressure to the measured pressure.
+ *
+ * @param inst The MS5611 driver instance
+ */
+static inline void ms5611_tare_next (struct ms5611_desc_t *inst)
+{
+    inst->p0_set = 0;
+}
+
 #endif /* ms5611_h */
