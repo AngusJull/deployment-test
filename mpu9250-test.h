@@ -345,7 +345,7 @@ struct mpu9250_desc_t {
 
 extern int init_mpu9250(struct mpu9250_desc_t *inst,
                         uint8_t i2c_addr,
-                        union gpio_pin_t int_pin,
+                        uint8_t int_pin,
                         enum mpu9250_gyro_fsr gyro_fsr,
                         enum mpu9250_gyro_bw gyro_bw,
                         enum mpu9250_accel_fsr accel_fsr,
